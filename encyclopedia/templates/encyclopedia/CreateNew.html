@@ -1,0 +1,39 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Create New Page
+{% endblock %}
+
+{% block body %}
+
+    {% if existing %}
+        <div>
+            <h3>This page already exists.<br>Try another title or visit the existing page <a href="wiki/{{ entry }}">Click Here</a> </h3>
+        </div>
+    {% endif %}
+    {% if editing %}
+        <h1 class="new_edit">Editing page</h1>
+        <form action="{% url 'newPage' %}" method="post">
+            {% csrf_token %}
+            <div class="title_content">"Title"</div>
+            <input type="hidden" name="editing" value="true">
+            <div class="inputs"><input class="inputtexts" type="text", name="title", value={{ pageTitle }} autocomplete="off"></div>
+            <div class="title_content">"Description"</div>
+            <div class="inputs"><textarea style="resize: none; height:400px; width: 1200px" name="description", rows="4" >{{ content }}</textarea></div>
+            <div class="submitbtn"><input id="sbmt" type="submit"></div>
+        </form>
+    {% else %}
+        <h1 class="new_edit">Create new page</h1>
+        <div class="myform">
+            <form action="{% url 'newPage' %}" method="post">
+                {% csrf_token %}
+                <div class="title_content">"Title"</div>
+                <input type="hidden" name="editing" value="false">
+                <div class="inputs"><input class="inputtexts" type="text", name="title", placeholder="Title Here" autocomplete="off"></div>
+                <div class="title_content">"Description"</div>
+                <div class="inputs"><textarea style="resize: none; height:400px; width: 1200px" name="description", placeholder="Describe...", rows="4" ></textarea></div>
+                <div class="submitbtn"><input id="sbmt" type="submit"></div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

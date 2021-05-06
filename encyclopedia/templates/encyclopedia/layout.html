@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Merienda+One" />
+        <link href="{% static 'encyclopedia/styles.css' %}" rel="stylesheet">
+    </head>
+    <body>
+        <div class="row">
+            <div class="sidebar col-lg-2 col-md-3">
+                <h2 class="wiki">Wiki</h2>
+                <div class="sidesearch">
+                    <form action="{% url 'search' %}" method="GET">
+                        <input class="search" type="text" name="q" placeholder="Search Encyclopedia" autocomplete="off">
+                    </form>
+                </div>
+                <div class="sideitem">
+                    <a href="{% url 'index' %}" id="sidelinks">Home</a>
+                </div>
+                <div class="sideitem">
+                    <a href="{% url 'newPage' %}" id="sidelinks">Create New Page</a>
+                </div>
+                <div class="sideitem">
+                    <a href="{% url 'random' %}" id="sidelinks">Random</a>
+                </div>
+                {% block nav %}
+                {% endblock %}
+            </div>
+            <div class="main col-lg-10 col-md-9">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </body>
+</html>
